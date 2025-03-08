@@ -5,15 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Item {
+public class Orders {
     private Long id;
-    private String itemNo;
-    private String itemType;
-    private String name;
-    private Double price;
-    private String imageUrl;
+    private String customerName;
+    private String contactNo;
+    private Double discount;
+    private Double totalPrice;
+    private List<OrderItem> items;
 }
