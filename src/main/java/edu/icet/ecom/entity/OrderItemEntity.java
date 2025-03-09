@@ -11,4 +11,7 @@ public class OrderItemEntity {
     private String itemName;
     private Double price;
     private Integer quantity;
+
+    public void setOrder(OrdersEntity save) {
+    }
 }
