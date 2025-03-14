@@ -16,7 +16,8 @@ public class CustomerController {
     final CustomerService service;
 
     @PostMapping("/add")
-    public void add(@RequestBody Customer customer){service.save(customer);}
+    public void add(@RequestBody Customer customer){service.save(customer);
+        System.out.println(customer);}
 
     @GetMapping("/search/{id}")
     public Customer search(@PathVariable Long id){

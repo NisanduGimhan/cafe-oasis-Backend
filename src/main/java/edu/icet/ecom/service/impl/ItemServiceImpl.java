@@ -19,7 +19,16 @@ public class ItemServiceImpl implements ItemService {
     private final ModelMapper mapper;
     @Override
     public void save(Item item) {
-        repo.save(mapper.map(item, ItemEntity.class));
+        if (item.getImageUrl() == null || item.getImageUrl().isEmpty()) {
+            throw new IllegalArgumentException("Image URL cannot be null or empty");
+        }
+
+        ItemEntity entity = new ItemEntity(
+                null, item.getItemNo(), item.getItemType(), item.getName(),
+                item.getPrice(), item.getImageUrl()
+        );
+
+        repo.save(entity);
     }
 
     @Override
@@ -42,9 +51,7 @@ public class ItemServiceImpl implements ItemService {
         List<Item> list=new ArrayList<>();
         List<ItemEntity> all = repo.findAll();
 
-        all.forEach(itemEntity -> {
-            list.add(mapper.map(itemEntity,Item.class));
-        });
+        all.forEach(itemEntity -> list.add(mapper.map(itemEntity,Item.class)));
         return list;
     }
 }

@@ -1,16 +1,17 @@
 package edu.icet.ecom.entity;
 
-import edu.icet.ecom.dto.OrderItem;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
 @NoArgsConstructor
-@AllArgsConstructor@Data
+@AllArgsConstructor
+@Data
+@ToString(exclude = "items") // Prevents infinite recursion
 @Entity
-@Table(name = "Orders")
+@Table(name = "orders") // Standardized table name
 public class OrdersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,12 @@ public class OrdersEntity {
     private String contactNo;
     private Double discount;
     private Double totalPrice;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItem> items;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<OrderItemEntity> items = new ArrayList<>();
+
+    public void addItem(OrderItemEntity item) {
+        items.add(item);
+        item.setOrder(this);
+    }
 }

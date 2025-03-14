@@ -16,10 +16,12 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repo;
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
+
     @Override
     public void save(Customer customer) {
-        repo.save(mapper.map(customer, CustomerEntity.class));
+        CustomerEntity save = repo.save(mapper.map(customer, CustomerEntity.class));
+        System.out.println(customer);
     }
 
     @Override
@@ -42,9 +44,7 @@ public class CustomerServiceImpl implements CustomerService {
         List<Customer> list=new ArrayList<>();
         List<CustomerEntity> all = repo.findAll();
 
-        all.forEach(customerEntity -> {
-            list.add(mapper.map(customerEntity,Customer.class));
-        });
+        all.forEach(customerEntity -> list.add(mapper.map(customerEntity,Customer.class)));
         return list;
     }
 }

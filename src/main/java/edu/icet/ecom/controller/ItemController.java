@@ -11,13 +11,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/item")
-@CrossOrigin
+@CrossOrigin()
 public class ItemController {
 
     private final ItemService service;
 
     @PostMapping("/add")
-    public void add(@RequestBody Item item){service.save(item);}
+    public void add(@RequestBody Item item){service.save(item);
+        System.out.println(item);}
+
 
     @GetMapping("/search/{id}")
     public Item search(@PathVariable Long id){

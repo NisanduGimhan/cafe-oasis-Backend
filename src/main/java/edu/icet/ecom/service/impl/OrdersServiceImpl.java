@@ -27,13 +27,18 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     @Transactional
     public void save(Orders orders) {
-        OrdersEntity save = repo.save(mapper.map(orders, OrdersEntity.class));
+        OrdersEntity ordersEntity = mapper.map(orders, OrdersEntity.class);
 
-        for (OrderItem item : orders.getItems()) {
-            OrderItemEntity orderItemEntity = mapper.map(item, OrderItemEntity.class);
-            orderItemEntity.setOrder(save); // Set the order reference
-            orderItemRepository.save(orderItemEntity);
+        // 🔥 Fix: Ensure each item is linked to the order before saving
+        if (ordersEntity.getItems() != null) {
+            for (OrderItemEntity item : ordersEntity.getItems()) {
+                item.setOrder(ordersEntity);
+            }
         }
+
+        repo.save(ordersEntity);
+
+
     }
 
     @Override

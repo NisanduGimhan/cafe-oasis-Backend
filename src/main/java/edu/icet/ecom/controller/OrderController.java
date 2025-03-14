@@ -16,7 +16,8 @@ public class OrderController {
     private final OrdersService service;
 
     @PostMapping("/add")
-    public void add(@RequestBody Orders orders){service.save(orders);}
+    public void add(@RequestBody Orders orders){service.save(orders);
+        System.out.println(orders);}
 
 
     @DeleteMapping("/delete/{id}")

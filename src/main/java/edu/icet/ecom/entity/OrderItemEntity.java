@@ -1,9 +1,14 @@
 package edu.icet.ecom.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@ToString(exclude = "order") // Prevents infinite recursion
 @Entity
-@Table(name = "OrderItem")
+@Table(name = "order_items") // Standardized table name
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,6 +17,7 @@ public class OrderItemEntity {
     private Double price;
     private Integer quantity;
 
-    public void setOrder(OrdersEntity save) {
-    }
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false) // Ensuring correct FK name
+    private OrdersEntity order;
 }
