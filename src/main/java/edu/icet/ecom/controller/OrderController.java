@@ -1,11 +1,9 @@
 package edu.icet.ecom.controller;
 
-
 import edu.icet.ecom.dto.Orders;
 import edu.icet.ecom.service.OrdersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -28,4 +26,5 @@ public class OrderController {
     public List<Orders> getall(){
         return service.findall();
     }
+
 }
