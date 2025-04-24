@@ -3,7 +3,7 @@ package edu.icet.ecom.service;
 import edu.icet.ecom.dto.User;
 
 public interface UserService {
-    String registerUser(User user);
+    User registerUser(User user);
 
     String sendOtp(String email);
 

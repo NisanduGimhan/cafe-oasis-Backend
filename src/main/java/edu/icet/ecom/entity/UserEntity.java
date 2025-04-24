@@ -1,5 +1,6 @@
 package edu.icet.ecom.entity;
 
+import edu.icet.ecom.util.UserType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,4 +17,6 @@ public class UserEntity {
     private String email;
     private String password;
     private String otp;
+    @Enumerated(EnumType.STRING)
+    private UserType role;
 }
