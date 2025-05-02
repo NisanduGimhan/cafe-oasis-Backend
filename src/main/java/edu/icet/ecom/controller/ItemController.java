@@ -10,8 +10,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/item")
-@CrossOrigin()
+@RequestMapping("/api/item")
+@CrossOrigin
 public class ItemController {
 
     private final ItemService service;

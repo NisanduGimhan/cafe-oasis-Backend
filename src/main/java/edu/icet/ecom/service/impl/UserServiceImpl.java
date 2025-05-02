@@ -9,11 +9,16 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.PrivateKey;
 import java.util.List;
 import java.util.Random;
 
@@ -24,10 +29,14 @@ public class UserServiceImpl implements UserService{
     private final JavaMailSender mailSender;
     private final UserRepository userRepository;
     private final ModelMapper mapper;
+    private final BCryptPasswordEncoder encoder= new BCryptPasswordEncoder(12);
+    private final AuthenticationManager authManager;
+    private final JWTServiceImpl jwtService;
 
 
     @Override
     public User registerUser(User user) {
+        user.setPassword(encoder.encode(user.getPassword()));
         UserEntity save = userRepository.save(mapper.map(user, UserEntity.class));
         User map = mapper.map(save, User.class);
         return map;
@@ -49,13 +58,26 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String login(String email, String password) {
-        return "";
+    public String login(String name, String password) {
+        Authentication authentication=
+                authManager.authenticate(new UsernamePasswordAuthenticationToken(name,password));
+
+        if(authentication.isAuthenticated())
+          return jwtService.generateToken(name);
+
+        return "failed";
+    }
+
+    @Override
+    public User loginReturnUser(String name, String password) {
+        UserEntity byfullName = userRepository.findByfullName(name);
+        User map = mapper.map(byfullName, User.class);
+        return map;
     }
 }
 
 
-
+//------------------------------------------------------------------------
 
 //
 //    public String registerUser(User user) {

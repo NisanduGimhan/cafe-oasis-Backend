@@ -12,4 +12,7 @@ public interface UserService {
     String resetPassword(String email, String newPassword);
 
     String login(String email, String password);
+
+    User loginReturnUser(String name, String password);
+
 }

@@ -5,7 +5,11 @@ import edu.icet.ecom.dto.User;
 import edu.icet.ecom.service.UserService;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -19,6 +23,23 @@ public class UserController {
     public User register(@RequestBody User user) {
         return userService.registerUser(user);
     }
+
+    @PostMapping("/login/{email}/{password}")
+    public ResponseEntity<Map<String, Object>> login(@PathVariable String email, @PathVariable String password) {
+        String token = userService.login(email, password);
+        User user = userService.loginReturnUser(email, password);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("role", user.getRole());
+        response.put("email", user.getEmail());
+        response.put("fullName", user.getFullName());
+
+        return ResponseEntity.ok(response);
+    }
+
+
+}
 //
 //    @PostMapping("/forgot-password/{email}")
 //    public String forgotPassword(@PathVariable String email) {
@@ -35,8 +56,5 @@ public class UserController {
 //        return userService.resetPassword(email, newPassword);
 //    }
 //
-//    @PostMapping("/login/{email}/{password}")
-//    public String login(@PathVariable String email, @PathVariable String password) {
-//        return userService.login(email, password);
-//    }
-}
+//
+
