@@ -23,3 +23,15 @@ spring :
           auth: true
           starttls:
             enable: true
+
+  # PayHere Configuration
+  payment:
+    payhere:
+      merchant-id: 1230128
+      merchant-secret: ODc2NzI5ODQ4MzE4Mzg2NzUxNjE2NzkyMjA0MjkzMjcyNjc3NTA4
+#      return-url: ${PAYHERE_RETURN_URL:http://localhost:4200/order-confirmation}
+#      cancel-url: ${PAYHERE_CANCEL_URL:http://localhost:4200/checkout}
+      notify-url: https://582b-2402-4000-2281-a2e-d0c6-d4e3-86b7-1cb6.ngrok-free.app
+#      auth-code: ${PAYHERE_AUTH_CODE:dummy_auth_code}
+      sandbox: true
+
