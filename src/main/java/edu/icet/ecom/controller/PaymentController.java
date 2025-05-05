@@ -60,7 +60,7 @@ public class PaymentController {
 
             if (localMd5sig.equalsIgnoreCase(md5sig) && "2".equals(statusCode)) {
                 System.out.println("Payment SUCCESS for Order: " + orderId);
-                // TODO: Update your database here
+
                 return ResponseEntity.ok("Payment successful");
             } else {
                 System.out.println("Invalid payment notification or payment not successful");
