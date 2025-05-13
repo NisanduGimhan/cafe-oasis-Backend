@@ -18,15 +18,15 @@ import static edu.icet.ecom.util.PayHereHashUtil.getMd5;
 @RequestMapping("/api/payment")
 public class PaymentController {
 
-    private final String merchantId = "1230128"; // replace with sandbox ID
-    private final String merchantSecret = "ODc2NzI5ODQ4MzE4Mzg2NzUxNjE2NzkyMjA0MjkzMjcyNjc3NTA4";
+    private final String merchantId = "1230343"; // replace with sandbox ID
+    private final String merchantSecret = "Mjg1NzgyMjk0MjIyNTg0NjM5ODgxNzQxNTI2MjQzODA4Mjc3MDg3";
 
     @PostMapping("/hash")
     public ResponseEntity<Map<String, String>> generateHash(@RequestBody Map<String, String> payload) {
         String orderId = payload.get("order_id");
         String amountStr = payload.get("amount");
         String currency = payload.get("currency");
-
+        System.out.println(orderId);
         double amount = Double.parseDouble(amountStr);
         DecimalFormat df = new DecimalFormat("0.00");
         String amountFormatted = df.format(amount);
@@ -39,7 +39,6 @@ public class PaymentController {
                 "merchant_id", merchantId
         ));
     }
-
 
     @PostMapping("/notify")
     public ResponseEntity<String> handleNotify(HttpServletRequest request) {
@@ -76,7 +75,7 @@ public class PaymentController {
 
     @GetMapping("/return")
     public RedirectView handleReturn() {
-        return new RedirectView("/payment-success.html");
+        return new RedirectView("http://localhost:4200/payment-success");
     }
 
     @GetMapping("/cancel")

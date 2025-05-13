@@ -42,11 +42,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Use the dedicated CORS config
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .headers(headers -> headers
+                        .contentSecurityPolicy(csp -> csp
+                                .policyDirectives("script-src 'self' 'unsafe-inline' https://sandbox.payhere.lk https://www.google-analytics.com; object-src 'none';")
+                        )
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/user/login/**",
-                                "/user/register"
+                                "/user/register",
+                                "/api/item/get-all"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -55,6 +61,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 
     // Dedicated CORS configuration
     @Bean

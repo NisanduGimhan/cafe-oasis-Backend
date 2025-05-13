@@ -18,7 +18,10 @@ public class OrdersEntity {
     private Long id;
     private String customerName;
     private String contactNo;
-    private Double discount;
+    private String email;
+    private String address;
+    private String orderNote;
+    private Double tax;
     private Double totalPrice;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

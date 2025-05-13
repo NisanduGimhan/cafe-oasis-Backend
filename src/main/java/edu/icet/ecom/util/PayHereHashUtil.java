@@ -15,8 +15,7 @@ public class PayHereHashUtil {
             while (hashText.length() < 32) {
                 hashText = "0" + hashText;
             }
-
-            return hashText.toUpperCase(); // PayHere expects uppercase
+            return hashText.toUpperCase();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
