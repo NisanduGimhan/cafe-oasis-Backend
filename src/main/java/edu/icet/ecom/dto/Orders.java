@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -13,12 +14,13 @@ import java.util.List;
 @ToString
 public class Orders {
     private Long id;
-    private String customerName;
-    private String contactNo;
+    private String orderNo;
+    private String name;
+    private String phone;
     private String email;
     private String address;
     private String orderNote;
     private Double tax;
     private Double totalPrice;
-    private List<OrderItem> items;
+    private List<OrderItem> items = new ArrayList<>();
 }

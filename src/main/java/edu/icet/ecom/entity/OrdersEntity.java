@@ -9,15 +9,16 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString(exclude = "items") // Prevents infinite recursion
+@ToString
 @Entity
 @Table(name = "orders") // Standardized table name
 public class OrdersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String customerName;
-    private String contactNo;
+    private String orderNo;
+    private String name;
+    private String phone;
     private String email;
     private String address;
     private String orderNote;
