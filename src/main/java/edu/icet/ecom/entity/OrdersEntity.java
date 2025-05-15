@@ -3,6 +3,7 @@ package edu.icet.ecom.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class OrdersEntity {
     private String email;
     private String address;
     private String orderNote;
+    private LocalDateTime date;
     private Double tax;
     private Double totalPrice;
 

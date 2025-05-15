@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -43,6 +45,15 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void update(Item item) {
+        if (item.getId() == null) {
+            throw new IllegalArgumentException("ID is required for update");
+        }
+
+        Optional<ItemEntity> existing = repo.findById(item.getId());
+        if (existing.isEmpty()) {
+            throw new RuntimeException("Item not found with ID: " + item.getId());
+        }
+
         repo.save(mapper.map(item, ItemEntity.class));
     }
 

@@ -32,7 +32,6 @@ public class ImageController {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("Empty file");
         }
-
         String originalFilename = file.getOriginalFilename();
         String extension = originalFilename != null ? originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
         String filename = UUID.randomUUID() + extension;

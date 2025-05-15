@@ -17,10 +17,8 @@ public class OrderController {
     public void add(@RequestBody Orders orders){service.save(orders);
         System.out.println(orders);}
 
-
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id){service.deleteById(id);}
-
 
     @GetMapping("/get-all")
     public List<Orders> getall(){

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +23,6 @@ public class Orders {
     private String orderNote;
     private Double tax;
     private Double totalPrice;
+    private LocalDateTime date;
     private List<OrderItem> items = new ArrayList<>();
 }

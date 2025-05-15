@@ -35,8 +35,4 @@ public class CustomerController {
 
         return service.findall();
     }
-
-
-
-
 }

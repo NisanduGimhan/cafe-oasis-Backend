@@ -20,7 +20,6 @@ public class ItemController {
     public void add(@RequestBody Item item){service.save(item);
         System.out.println(item);}
 
-
     @GetMapping("/search/{id}")
     public Item search(@PathVariable Long id){
         return service.findById(id);
@@ -29,9 +28,11 @@ public class ItemController {
     @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id){service.deleteById(id);}
 
-    @PutMapping("/update")
-    public void update(@RequestBody Item item){service.update(item);}
-
+    @PutMapping("/update/{id}")
+    public void update(@PathVariable Long id, @RequestBody Item item) {
+        item.setId(id);
+        service.update(item);
+    }
     @GetMapping("/get-all")
     public List<Item> getall(){
 
