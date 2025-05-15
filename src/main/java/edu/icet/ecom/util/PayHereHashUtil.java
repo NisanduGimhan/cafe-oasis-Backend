@@ -11,7 +11,6 @@ public class PayHereHashUtil {
             BigInteger no = new BigInteger(1, messageDigest);
             String hashText = no.toString(16);
 
-            // Pad with leading zeros to make 32 chars
             while (hashText.length() < 32) {
                 hashText = "0" + hashText;
             }

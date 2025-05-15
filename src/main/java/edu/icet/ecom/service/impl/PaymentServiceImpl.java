@@ -29,20 +29,20 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public void processSuccess(PaymentPayload payload) {
-        // Fetch existing customer by email
+
         String email = payload.getCustomer().getEmail();
         Optional<CustomerEntity> existingCustomerOpt = customerRepo.findByEmail(email);
 
         CustomerEntity customer;
 
         if (existingCustomerOpt.isPresent()) {
-            // Customer exists – update details
+
             customer = existingCustomerOpt.get();
             customer.setName(payload.getCustomer().getName());
             customer.setPhone(payload.getCustomer().getPhone());
             customer.setAddress(payload.getCustomer().getAddress());
         } else {
-            // New customer
+
             customer = new CustomerEntity();
             customer.setName(payload.getCustomer().getName());
             customer.setEmail(email);
@@ -52,7 +52,6 @@ public class PaymentServiceImpl implements PaymentService {
 
         customerRepo.save(mapper.map(customer, CustomerEntity.class));
 
-        // Save Order
         OrdersEntity order = new OrdersEntity();
         order.setName(payload.getOrder().getName());
         order.setPhone(payload.getOrder().getPhone());
@@ -63,21 +62,19 @@ public class PaymentServiceImpl implements PaymentService {
         order.setTotalPrice(payload.getOrder().getTotalPrice());
         order.setOrderNo(payload.getOrder().getOrderNo());
 
-        // Set order items
         order.setItems(
                 payload.getOrder().getItems().stream().map(itemDto -> {
                     OrderItemEntity item = new OrderItemEntity();
                     item.setItemName(itemDto.getItemName());
                     item.setQuantity(itemDto.getQuantity());
                     item.setPrice(itemDto.getPrice());
-                    item.setOrder(order); // Set back-reference
+                    item.setOrder(order);
                     return item;
                 }).collect(Collectors.toList())
         );
 
         ordersRepo.save(mapper.map(order, OrdersEntity.class));
 
-        // Save Payment
         PaymentEntity payment = new PaymentEntity();
         payment.setOrderId(payload.getPayment().getOrderId());
         payment.setAmount(payload.getPayment().getAmount());
