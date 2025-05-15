@@ -53,7 +53,7 @@ public class SecurityConfig {
                                 "/user/login/**",
                                 "/user/register",
                                 "/api/item/get-all",
-                                "/api/payment/notify"
+                                "/api/payment/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
