@@ -1,8 +1,6 @@
 package edu.icet.ecom.entity;
-
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @Data
 @ToString
 @Entity
-@Table(name = "orders") // Standardized table name
+@Table(name = "orders")
 public class OrdersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

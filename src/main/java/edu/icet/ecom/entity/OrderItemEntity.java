@@ -6,9 +6,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString(exclude = "order") // Prevents infinite recursion
+@ToString(exclude = "order")
 @Entity
-@Table(name = "order_items") // Standardized table name
+@Table(name = "order_items")
 public class OrderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,6 @@ public class OrderItemEntity {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false) // Ensuring correct FK name
+    @JoinColumn(name = "order_id", nullable = false)
     private OrdersEntity order;
 }
